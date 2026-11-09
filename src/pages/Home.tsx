@@ -13,7 +13,7 @@ export function Home() {
   const [category, setCategory] = useState("");
   const [language, setLanguage] = useState("");
   const [license, setLicense] = useState("");
-  const [sort, setSort] = useState<SortKey>("stars");
+  const [sort, setSort] = useState<SortKey>("score");
 
   const categories = useMemo(() => uniqueValues("category"), []);
   const languages = useMemo(() => uniqueValues("language"), []);
@@ -26,16 +26,24 @@ export function Home() {
       if (language && p.language !== language) return false;
       if (license && p.license !== license) return false;
       if (!q) return true;
-      const hay = `${p.name} ${p.tagline} ${p.description} ${p.topics.join(" ")}`.toLowerCase();
+      const hay = [
+        p.name,
+        p.tagline,
+        p.description,
+        p.saasIdea,
+        p.replaces,
+        p.niche,
+        p.topics.join(" "),
+      ]
+        .join(" ")
+        .toLowerCase();
       return hay.includes(q);
     });
 
     list.sort((a, b) => {
       if (sort === "name") return a.name.localeCompare(b.name, "fr");
-      if (sort === "downloads") {
-        return (b.weeklyDownloads ?? 0) - (a.weeklyDownloads ?? 0);
-      }
-      return b.stars - a.stars;
+      if (sort === "stars") return b.stars - a.stars;
+      return b.opportunityScore - a.opportunityScore;
     });
 
     return list;
@@ -47,27 +55,31 @@ export function Home() {
         <div className="hero__bg" aria-hidden>
           <div className="hero__grid" />
           <div className="hero__glow" />
-          <pre className="hero__code">{`mit.copy()\napache.sell()\nbsd.ship()`}</pre>
+          <pre className="hero__code">{`fork.umami()\nhost.chatwoot()\nsell.saas()`}</pre>
         </div>
         <nav className="nav">
           <Link to="/" className="nav__brand">
             Copycat
           </Link>
-          <button type="button" className="nav__link nav__link--btn" onClick={scrollToRanking}>
-            Classement
+          <button
+            type="button"
+            className="nav__link nav__link--btn"
+            onClick={scrollToRanking}
+          >
+            Idées SaaS
           </button>
         </nav>
         <div className="hero__content">
           <p className="hero__brand">Copycat</p>
           <h1 className="hero__title">
-            Les open source les plus utilisés, libres à commercialiser.
+            Forke un open source, vends un SaaS.
           </h1>
           <p className="hero__lead">
-            Un annuaire des projets sous licences permissives — MIT, Apache,
-            BSD, ISC — prêts à être recopiés, forkés et vendus.
+            Des bases OSS permissives déjà utilisées — avec la niche, le
+            concurrent à remplacer, et un prix indicatif pour commercialiser.
           </p>
           <button type="button" className="cta" onClick={scrollToRanking}>
-            Voir le classement
+            Voir les opportunités
           </button>
         </div>
       </header>
@@ -75,11 +87,11 @@ export function Home() {
       <main className="main">
         <div className="main__meta">
           <p className="banner">
-            Données curatées · nov. 2026 · {projects.length} projets · licences
-            permissives uniquement
+            Données curatées · nov. 2026 · {projects.length} bases SaaS ·
+            licences permissives uniquement
           </p>
           <p className="result-count">
-            {filtered.length} projet{filtered.length > 1 ? "s" : ""}
+            {filtered.length} opportunité{filtered.length > 1 ? "s" : ""}
           </p>
         </div>
 
@@ -104,8 +116,8 @@ export function Home() {
 
       <footer className="footer">
         <p>
-          Copycat n’est pas un conseil juridique. Vérifie toujours la licence
-          du dépôt avant usage commercial.
+          Copycat n’est pas un conseil juridique ni financier. Vérifie la
+          licence du dépôt et valide la demande avant de lancer.
         </p>
       </footer>
     </>

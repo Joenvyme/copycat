@@ -16,4 +16,12 @@ export type Project = {
   homepage?: string;
   npmUrl?: string;
   commercialOk: true;
+  /** IdeaBrowser-style SaaS wedge */
+  saasIdea: string;
+  replaces: string;
+  niche: string;
+  pricingHint: string;
+  opportunityScore: number;
+  demandSignal: string;
+  monetization: string;
 };

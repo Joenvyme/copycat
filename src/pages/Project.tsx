@@ -16,9 +16,9 @@ export function ProjectPage() {
             Copycat
           </Link>
         </nav>
-        <h1>Projet introuvable</h1>
+        <h1>Opportunité introuvable</h1>
         <Link to="/" className="cta cta--ghost">
-          Retour au classement
+          Retour aux idées
         </Link>
       </div>
     );
@@ -33,47 +33,65 @@ export function ProjectPage() {
           Copycat
         </Link>
         <Link to="/" className="nav__link">
-          Classement
+          Idées SaaS
         </Link>
       </nav>
 
       <article className="detail__body">
-        <p className="detail__eyebrow">{project.category}</p>
+        <p className="detail__eyebrow">
+          {project.category} · score {project.opportunityScore.toFixed(1)}
+        </p>
         <h1 className="detail__title">{project.name}</h1>
         <p className="detail__tagline">{project.tagline}</p>
 
         <div className="detail__badges">
           <LicenseBadge license={project.license} />
           <span className="pill">{project.language}</span>
+          <span className="pill pill--accent">{project.niche}</span>
         </div>
+
+        <section className="idea-panel">
+          <h2>Idée SaaS</h2>
+          <p>{project.saasIdea}</p>
+          <dl className="idea-grid">
+            <div>
+              <dt>Remplace</dt>
+              <dd>{project.replaces}</dd>
+            </div>
+            <div>
+              <dt>Prix indicatif</dt>
+              <dd>{project.pricingHint}</dd>
+            </div>
+            <div>
+              <dt>Monétisation</dt>
+              <dd>{project.monetization}</dd>
+            </div>
+            <div>
+              <dt>Signal de demande</dt>
+              <dd>{project.demandSignal}</dd>
+            </div>
+          </dl>
+        </section>
 
         <p className="detail__desc">{project.description}</p>
 
         <dl className="metrics">
           <div>
+            <dt>Score opportunité</dt>
+            <dd>{project.opportunityScore.toFixed(1)}</dd>
+          </div>
+          <div>
             <dt>Stars GitHub</dt>
             <dd>{formatNumber(project.stars)}</dd>
           </div>
           <div>
-            <dt>Downloads / sem.</dt>
-            <dd>
-              {project.weeklyDownloads != null
-                ? formatNumber(project.weeklyDownloads)
-                : "—"}
-            </dd>
-          </div>
-          <div>
-            <dt>Dependents</dt>
-            <dd>
-              {project.dependents != null
-                ? formatNumber(project.dependents)
-                : "—"}
-            </dd>
+            <dt>Niche</dt>
+            <dd className="metrics__text">{project.niche}</dd>
           </div>
         </dl>
 
         <section className="license-panel">
-          <h2>Licence {license.label}</h2>
+          <h2>Licence {license.label} — OK commercial</h2>
           <p>{license.summary}</p>
           <ul>
             {license.can.map((item) => (
@@ -106,16 +124,6 @@ export function ProjectPage() {
               rel="noreferrer"
             >
               Site officiel
-            </a>
-          )}
-          {project.npmUrl && (
-            <a
-              className="cta cta--ghost"
-              href={project.npmUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              npm
             </a>
           )}
         </div>

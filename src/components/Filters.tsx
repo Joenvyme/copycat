@@ -1,4 +1,4 @@
-export type SortKey = "stars" | "downloads" | "name";
+export type SortKey = "score" | "stars" | "name";
 
 type Props = {
   query: string;
@@ -37,7 +37,7 @@ export function Filters({
         <span className="sr-only">Rechercher</span>
         <input
           type="search"
-          placeholder="Rechercher un projet…"
+          placeholder="Rechercher une idée SaaS, un concurrent…"
           value={query}
           onChange={(e) => onQuery(e.target.value)}
         />
@@ -56,9 +56,9 @@ export function Filters({
       </label>
 
       <label>
-        <span>Langage</span>
+        <span>Stack</span>
         <select value={language} onChange={(e) => onLanguage(e.target.value)}>
-          <option value="">Tous</option>
+          <option value="">Toutes</option>
           {languages.map((l) => (
             <option key={l} value={l}>
               {l}
@@ -85,8 +85,8 @@ export function Filters({
           value={sort}
           onChange={(e) => onSort(e.target.value as SortKey)}
         >
+          <option value="score">Score opportunité</option>
           <option value="stars">Stars</option>
-          <option value="downloads">Téléchargements</option>
           <option value="name">Nom</option>
         </select>
       </label>

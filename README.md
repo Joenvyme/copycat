@@ -1,11 +1,13 @@
 # Copycat
 
-Annuaire des projets open source les plus utilisés, sous licences permissives (MIT, Apache, BSD, ISC…) — libres à recopier et commercialiser.
+Annuaire d’**opportunités SaaS** basées sur de l’open source permissif (MIT, Apache, BSD…) — à forker, héberger et vendre.
+
+Inspiré du format IdeaBrowser : chaque entrée a une niche, un concurrent à remplacer, un score d’opportunité et un prix indicatif.
 
 ## Stack
 
 - Vite + React + TypeScript
-- Données curatées dans `src/data/projects.json` (pas d’API GitHub)
+- Données curatées dans `src/data/projects.json`
 
 ## Développement
 
@@ -14,8 +16,6 @@ npm install
 npm run dev
 ```
 
-Build production :
-
 ```bash
 npm run build
 npm run preview
@@ -23,4 +23,4 @@ npm run preview
 
 ## Contenu
 
-Chaque projet liste licence, métriques d’usage (stars, downloads), et une explication claire de ce que la licence autorise côté commercialisation. Les licences copyleft (GPL, AGPL, etc.) sont volontairement exclues.
+Uniquement des **produits / plateformes** monétisables (support, analytics, CMS, e-com, auth, AI infra…), pas des libs génériques (React, Lodash…). Licences copyleft exclues.
